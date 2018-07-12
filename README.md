@@ -17,6 +17,7 @@ More details about patchkit : https://github.com/lunixbochs/patchkit
 ----
 用法
 现将hpwnwaf.py 中 main_addr 改为需要修改的二进制文件中main函数入口地址,然后执行```./patch ELF hpwnwaf.py``` 
+暂时只支持linux 64位程序
 
 hpwnwaf 中的过滤规则为 
 ``` 
