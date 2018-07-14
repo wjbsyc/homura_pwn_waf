@@ -8,18 +8,18 @@ Dependencies
   - Keystone Engine - https://github.com/keystone-engine/keystone.git
   - Unicorn Engine  - https://github.com/unicorn-engine/unicorn.git
 
-----
-More details about patchkit : https://github.com/lunixbochs/patchkit
+- More details about patchkit : https://github.com/lunixbochs/patchkit
 
-----
-该pwn通防的原理是利用Patchkit在程序main函数入口处先跳转执行seccomp禁止一些像execve之类的系统调用，然后跳转会主函数执行原来的程序，可以自定义过滤规则，这里给出两份过滤规则，下面会详细说明。
+- 该pwn通防的原理是利用Patchkit在程序main函数入口处先跳转执行seccomp禁止一些像execve之类的系统调用，然后跳转会主函数执行原来的程序，可以自定义过滤规则，这里给出两份过滤规则，下面会详细说明。
 
-----
-用法
-现将hpwnwaf.py 中 main_addr 改为需要修改的二进制文件中main函数入口地址,然后执行```./patch ELF hpwnwaf.py``` 
-暂时只支持linux 64位程序
 
-hpwnwaf 中的过滤规则为 
+How to use:
+----
+- 先将hpwnwaf.py 中 main_addr 改为需要修改的二进制文件中main函数入口地址,然后执行```./patch ELF hpwnwaf.py``` 
+- 暂时只支持linux 64位程序
+
+
+- hpwnwaf 中的过滤规则为 
 ``` 
   scmp_filter_ctx ctx;
   ctx = seccomp_init(SCMP_ACT_ALLOW);
@@ -30,7 +30,7 @@ hpwnwaf 中的过滤规则为
   seccomp_rule_add(ctx, SCMP_ACT_KILL, SCMP_SYS(clone), 0);  
   seccomp_rule_add(ctx, SCMP_ACT_KILL, SCMP_SYS(execve), 0); 
 ```
-hpwnwaf2中的过滤规则为 
+- hpwnwaf2中的过滤规则为 
 ```
   scmp_filter_ctx ctx;
   ctx = seccomp_init(SCMP_ACT_ALLOW);
