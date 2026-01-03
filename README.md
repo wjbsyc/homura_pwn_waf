@@ -1,22 +1,21 @@
 homura_pwn_waf
 ----
-Use patchkit to patch the ELF(Add seccomp rules)
+Use elf_patcher to patch the ELF(Add seccomp rules)
 Dependencies
 ----
-- Run `./deps.sh` to automatically install these.
+- Run `./elf_patcher/install_deps.sh` to automatically install these.
   - Capstone Engine - https://github.com/aquynh/capstone.git
   - Keystone Engine - https://github.com/keystone-engine/keystone.git
-  - Unicorn Engine  - https://github.com/unicorn-engine/unicorn.git
 
 - More details about patchkit : https://github.com/lunixbochs/patchkit
 
-- 该pwn通防的原理是利用Patchkit在程序main函数入口处先跳转执行seccomp禁止一些像execve之类的系统调用，然后跳转会主函数执行原来的程序，可以自定义过滤规则，这里给出两份过滤规则，下面会详细说明。
+- 由于patchkit年久失修, 本项目改为基于elf_patcher实现
+- 该pwn通防的原理是利用elf_patcher在程序main函数入口处先跳转执行seccomp禁止一些像execve之类的系统调用，然后跳转会主函数执行原来的程序，可以自定义过滤规则，这里给出两份过滤规则，下面会详细说明。
 
 
 How to use:
 ----
-- 先将hpwnwaf.py 中 main_addr 改为需要修改的二进制文件中main函数入口地址,然后执行```./patch ELF hpwnwaf.py``` 
-- 暂时只支持linux 64位程序
+- 参照[elf_patcher](https://github.com/wjbsyc/elf_patcher)的说明，执行```./elf_patcher -o OFFSET -A hpwnwaf.asm -O OUTPUT ./ELF``` 
 
 
 - hpwnwaf 中的过滤规则为 

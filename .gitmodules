@@ -1,0 +1,3 @@
+[submodule "elf_patcher"]
+	path = elf_patcher
+	url = https://github.com/wjbsyc/elf_patcher
